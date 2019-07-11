@@ -1,5 +1,5 @@
 all: main
 
 main: 
-	gcc 02.cpp -lstdc++
+	gcc 03.cpp -lstdc++
 	

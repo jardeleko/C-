@@ -5,6 +5,7 @@
 using namespace std;
 
 class lenguage{
+	friend void class_friend(lenguage *);
 protected: 
 	char name[20];
 private:
@@ -28,6 +29,9 @@ public:
 	}
 };
 
+void class_friend(lenguage * l){
+	cout << "try:" << l->name << endl;
+}
 
 int main (void){
 	char *ret, *word;
@@ -44,6 +48,7 @@ int main (void){
 	am = l.get_since();
 	cout << am << endl;
 
+	class_friend(&l);
 
 	return 0;
 }	

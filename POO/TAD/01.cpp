@@ -1,6 +1,6 @@
 #include <iostream>
 
-//FIFO STACK, agora com classe  
+//LIFO STACK, agora com classe  
 using namespace std;
 
 class Stack{

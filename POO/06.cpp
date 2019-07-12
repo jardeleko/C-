@@ -5,7 +5,7 @@ using namespace std;
 
 class Animals{
 
-protected:
+private:
 	 char *name;
 	 bool fly;
 	 int paw;

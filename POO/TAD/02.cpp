@@ -1,67 +1,94 @@
 #include <iostream>
-#include <string.h>
-
+#include <list>
+#include <stdlib.h>
+//TAD with a template
+//politic FIFO (first in first out)
 using namespace std;
 
-class People {
+template<class Q>
+
+class Queue{
 
 private:
-	char *name;
-	int id;
+	list<Q> queue;
 
 public:
-	void init_(const char *name, int id){
-		int size;
-		size = strlen(name);
-		this->name = new char[size + 1];
-		strcpy(this->name, name);
-		this->id = id;
+	void queue_insert(const Q& x){
+		queue.push_back(x);
+	}	
+
+	bool queue_empty(){
+		return queue.empty();
 	}
 
-	void free_(){
-		delete[] name;
-		name = 0;
-	}
-	People(const char *name, int id){
-		/*int size;
-		size = strlen(name);
-		this->name = new char[size + 1];
-		strcpy(this->name, name);
-		this->id = id;
-		*/
-		init_(name, id);
-	}
-	People(People &p){
-		init_(p.name, p.id);
+	Q queue_remove(){
+		if(!this->queue_empty()){
+			Q x = queue.front();
+			queue.pop_front();
+			return x;
+		}
+
+		throw "empty queue";
 	}
 
-	virtual ~People(){
-		free_();
-	}
-	People& operator=(People& p){ //faz com que o ponteiro para de apontar para o mesmo bloco de memoria
-		if(this != &p) free_(), init_(p.name, p.id);
-		return *this;
+	Q first(){
+		if(!this->queue_empty()){
+			return queue.back();
+		}
+		throw "empty queue";
 	}
 
-	const char * get_name(){
-		return this->name;
+	Q queue_begin(){
+		if(!this->queue_empty()) return queue.front();
+		throw "Bug\n";
+	} 
+
+	Q queue_end(){
+		if(!this->queue_empty()) return queue.back();
+		throw "Bug\n";
 	}
-	int get_id(){
-		return this->id;
+
+	void print_(){
+		list<int> :: iterator it;
+		if(!this->queue_empty()){
+			for (it = queue.begin(); it != queue.end(); ++it)	{
+				cout << *it << " \t";
+			}
+			printf("\n");
+		}
 	}
-	void set_new_char(char c){
-		name[0] = c;
-	}
+
 };
+	
 
 int main (void){
-	People p1("name", 1);
-	People p2("other_name", 6);
-	
-	p1 = p2;
+	int op, key;
+	Queue<int> f; 	
 
-	p2.set_new_char('X');
-	cout << p1.get_name() << " " << p1.get_id() << endl;
-	cout << p2.get_name() << " " << p2.get_id() << endl;
+	while(scanf(" %d", &op) != EOF){
+		switch(op){
+			case 1:
+				cout << "insert:\n";
+				cin >> key;
+				f.queue_insert(key);
+				break;
+
+			case 2:
+				cout << "remove:\n";
+				try{
+					int aux = f.queue_remove();
+					printf("%d\n", aux);
+				}
+				catch(const char *err){
+					cerr << "Exception: " << err << endl;
+				}
+				break;
+			case 3:
+				f.print_();
+				break;
+			default:
+				exit(1);
+		}
+	}
 	return 0;
 }

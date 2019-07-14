@@ -129,7 +129,6 @@ int main (void){
 	Sllist l;
 	if(l.void_sllist());
 		cout << "Vazia" << endl;
-
 	while(scanf("%d", &op) != EOF){
 		int key;
 		switch(op){
@@ -168,4 +167,4 @@ int main (void){
 		}
 	}
 	return 0;
-};
+}

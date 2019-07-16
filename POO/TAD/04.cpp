@@ -2,87 +2,91 @@
 
 using namespace std;
 
-class  node{
+class  Node{
 private:
-	node *left, *right;
+	Node *left, *right;
 	int key;
+
 public:
-	node(int key){
+	Node(int key){
 		this->key = key;
 		left = NULL;
 		right = NULL;
-	}	
+	}
 
 	int get_key(){
 		return this->key;
 	}
-	node* get_left(){
+	Node* get_left(){
 		return this->left;
 	}
-	node* get_right(){
+	Node* get_right(){
 		return this->right;
+	}	
+	void set_left(Node* node){
+		this->left = node;
 	}
-	void set_left(node *leaf){
-		this->left = leaf;
-	}
-	void set_right(node *leaf){
-		this->left = leaf;
-	}
-
+	void set_right(Node* node){
+		this->right = node;
+	}	
 };
 
-class bstree{
-private:
-	node* root;
+class bstree {
 
+private:
+	Node* root;
 public:
 	bstree(){
-		root = NULL;
+		this->root = NULL;
 	}
+
 	void insert_bstree(int key){
-		if(root == NULL) root = new node(key);
-		else bstree_insert_fixup(root, key);
+		 if(root == NULL) root = new Node(key);
+		 else insert_fixup(root, key);
 	}
-
-	void bstree_insert_fixup(node* xnode, int key){
-		if(key < xnode->get_key()){
-			if(xnode->get_left() == NULL){
-				node* snode = new node(key);
-				xnode->set_left(snode);
+	
+	void insert_fixup(Node *node, int key){ // exemplo chave unica
+		if(key < node->get_key()){
+			if(node->get_left() == NULL){
+				Node* snode = new Node(key);
+				node->set_left(snode);
 			}
-			else bstree_insert_fixup(xnode->get_left(), key);
-
+			else insert_fixup(node->get_left(), key);
 		}
-		else if(key > xnode->get_key()){
-			if(xnode->get_right() == NULL){
-				node* snode = new node(key);
-				xnode->set_right(snode);
+		else if(key > node->get_key()){
+			if(node->get_right() == NULL){
+				Node* snode = new Node(key);
+				node->set_right(snode);
 			}
-			else bstree_insert_fixup(xnode->get_right(), key);
-
+			else insert_fixup(node->get_right(), key);
 		}
+
 	}
-
-	node* get_root(){
+	Node *get_root(){
 		return this->root;
 	}
 
-	void print_bstree(node* xnode){
-		if(xnode != NULL){
-			print_bstree(xnode->get_left());
-			cout << xnode->get_key() << "\t";
-			print_bstree(xnode->get_right());
+	void print_bstree(Node* node){
+		if(node != NULL){
+			print_bstree(node->get_left());
+			cout << node->get_key() << "\t";
+			print_bstree(node->get_right());
 		}
-		
 	}
 };
 
-int main(void){
+int main (void){
 
-	bstree tree;
-	tree.insert_bstree(16);
-	tree.insert_bstree(25);
-	tree.insert_bstree(5);
+bstree tree;
+	
+	tree.insert_bstree(8);
+	tree.insert_bstree(10);
+	tree.insert_bstree(14);
+	tree.insert_bstree(13);
+	tree.insert_bstree(3);
+	tree.insert_bstree(1);
+	tree.insert_bstree(6);
+	tree.insert_bstree(4);
 	tree.insert_bstree(7);
 
 	tree.print_bstree(tree.get_root());

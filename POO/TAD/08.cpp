@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include <queue>
 #include <stack>
 
 using namespace std;
@@ -16,6 +17,7 @@ public:
 
 	void set_edge(int v1, int v2);
 	void dfs(int v);	
+	void bfs(int v);
 };
 
 Graph::Graph(int v){
@@ -66,6 +68,34 @@ void Graph::dfs(int v){
 	}
 }
 
+void Graph::bfs(int v){
+	queue<int> my_queue;
+	bool checked[v];
+
+	for (int i = 0; i < v; ++i)	{
+		checked[i] = false;
+	}
+
+	cout << "checklist vertex" << v << "\n";
+	checked[v] = true;
+
+	while(true){
+		list<int>:: iterator it_list;
+		for (it_list = adj[v].begin(); it_list != adj[v].end(); it_list++)	{
+			if(!checked[*it_list]) {
+				cout << "ckecked true index " << *it_list << "\n"; 
+				checked[*it_list] = true;
+				my_queue.push(*it_list);
+			}
+		}
+		if(!my_queue.empty()){
+			v = my_queue.front(); //get the first vertex 
+			my_queue.pop(); //remove 
+		}
+		else 
+			break;		
+	}
+}
 
 int main (void){
 	int v = 10;
@@ -80,7 +110,7 @@ int main (void){
 	graphs.set_edge(2, 6);
 	graphs.set_edge(6, 7);
 
-	graphs.dfs(0);
+	graphs.bfs(0);
 
 	return 0;
 }

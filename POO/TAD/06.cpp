@@ -63,8 +63,8 @@ int main (void){
 	cout <<"Grau de Entrada: " << graphs.size_in(1) << endl; //size access input edge x -> y
 	cout <<"Grau de saida: " << graphs.size_out(1) << endl; // size access out edge x <- y
 	cout <<"This Relation: " <<graphs.is_linked(3, 2) << endl; //return 1 if a relationship is true 
-	
-	Depth-First Searchreturn 0;
+	//Depth-First Searchreturn 
+	return 0;
 }
 	
 //grafos com arestas não valoradas

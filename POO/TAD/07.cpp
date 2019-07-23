@@ -9,32 +9,29 @@ using namespace std;
 
 class Graph{
 
-	int v; //vertex
+	int Vtx; //vertex
 	list <int> *adj;
 public:
-	Graph(int v);
 
+	Graph(int Vtx);
 	void set_edge(int v1, int v2);
 	void dfs(int v);	
 };
 
-Graph::Graph(int v){
-	this->v = v;
-	adj = new list<int>[v];
+Graph::Graph(int Vtx){
+	this->Vtx = Vtx;
+	adj = new list<int>[Vtx];
 }	
 
 void Graph::set_edge(int v1, int v2){
-	printf("insere na lista\n");
 	adj[v1].push_back(v2); //linked v2 in v1
 }
 
 void Graph::dfs(int v){
 	stack<int> heap;
-	bool checked[v];
+	bool checked[Vtx]; //list of the checked
 
-	for (int i = 0; i < v; ++i)	{
-		checked[i] = false;
-	}
+	for (int i = 0; i < Vtx; i++)	checked[i] = false;
 
 	while(true){
 		if(!checked[v]){ 
@@ -45,22 +42,17 @@ void Graph::dfs(int v){
 
 		bool ret = false;
 		list<int> :: iterator it;
-		
+		//list node isnt ckecked 
 		for (it = adj[v].begin(); it != adj[v].end(); it++) {
 			if(!checked[*it]) {
 				ret = true;
 				break;
 			}
 		}
-		if(ret){
-		 	v = *it;
-			printf("verifica v\n");
-		}
+		if(ret)	v = *it;
 		else{
 			heap.pop();
-			printf("fragmentou aqui heap.pop()\n");
 			if(heap.empty()) break;
-			printf("fragmentou aqui v = heap\n");
 			v = heap.top();
 		}
 	}
@@ -68,9 +60,9 @@ void Graph::dfs(int v){
 
 
 int main (void){
-	int v = 10;
+	int Vtx = 8;
 
-	Graph graphs(v);
+	Graph graphs(Vtx);
 	
 	graphs.set_edge(0, 1);
 	graphs.set_edge(0, 2);
@@ -84,6 +76,6 @@ int main (void){
 
 	return 0;
 }
-	//compilando mas segmentada 
+	//stabilishing version  
 //Depth-First Search
 
